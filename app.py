@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app = Flask(__name__)
+app.secret_key = "TODO"
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///project.db"
 app.config['SQLALCHEMY_DATABASE_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -29,6 +30,10 @@ with app.app_context():
 
 
 @app.route('/', methods=["GET", "POST"])
+def main():
+    return render_template('login.html')
+
+@app.route('/login',methods=['POST'])
 def login():
     if request.method == "POST":
         username = request.form.get("username")
@@ -38,7 +43,7 @@ def login():
             return redirect(url_for('home'))
         else:
             flash('Invalid username or password')
-    return render_template('login.html')
+        return redirect(url_for('home'))
 
 
 @app.route('/home', methods=["GET", "POST"])
@@ -71,7 +76,7 @@ def signup():
         db.session.add(user)
         db.session.commit()
         print(user)
-        return redirect(url_for('home'))
+        return render_template('login.html')
     return render_template('signup.html')
 
 
