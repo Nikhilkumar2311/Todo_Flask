@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}" />
+    <title>Signup</title>
+</head>
+<body>
+    <section class="container">
+        <div class="login-container">
+            <div class="circle circle-one"></div>
+            <div class="form-container">
+                <img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="illustration" class="illustration" />
+                <h1 class="opacity">SIGNUP</h1>
+                <form action="/signup" method="post">
+                    <input type="text" name="username" placeholder="USERNAME" />
+                    <input type="password" name="password" placeholder="PASSWORD" />
+                    <input type="password" name="cpassword" placeholder="CONFIRM PASSWORD" />
+                    <input type="submit" id="submit" class="opacity" value="SUBMIT">
+                </form>
+                <div class="register-forget opacity">
+                    <a href="{{ url_for('login') }}">LOGIN</a>
+                </div>
+            </div>
+            <div class="circle circle-two"></div>
+        </div>
+        <div class="theme-btn-container"></div>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>
