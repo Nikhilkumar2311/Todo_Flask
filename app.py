@@ -67,11 +67,23 @@ def signup():
         icpassword = request.form.get("cpassword")
         user = Table.query.filter_by(username=iusername).first()
         if user:
-            return render_template('signup.html', msg="User already exists")
-        if len(ipassword) < 7:
-            return render_template('signup.html', msg="Password is too short")
+            flash('User already exists')
+            return render_template('signup.html')
+        if len(ipassword) < 8:
+            flash('Password should contain atleast 8 Characters')
+            return render_template('signup.html')
+        if ipassword.isdigit():
+            flash('Password should contain One Uppercase and One LowerCase')
+            return render_template('signup.html')
+        if ipassword.islower():
+            flash('Password should contain One Uppercase and One Digit')
+            return render_template('signup.html')
+        if ipassword.isupper():
+            flash('Password should contain One Digit and One LowerCase')
+            return render_template('signup.html')
         if ipassword != icpassword:
-            return render_template('signup.html', msg="Passwords do not match")
+            flash('Password does not match')
+            return render_template('signup.html')
         user = Table(username=iusername, password=generate_password_hash(ipassword, method='pbkdf2:sha256'))
         db.session.add(user)
         db.session.commit()
